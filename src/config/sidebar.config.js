@@ -21,7 +21,7 @@ export const SIDEBAR_DATA = [
         path: routes.emails.path
     },
     {
-        name: 'draft',
+        name: 'drafts',
         title: 'Drafts',
         icon: InsertDriveFileOutlined,
         path: routes.emails.path

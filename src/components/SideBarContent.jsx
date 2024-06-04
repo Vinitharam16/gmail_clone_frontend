@@ -31,12 +31,12 @@ const Container = styled(Box)({
 })
 
 export default function SideBarContent() {
-    const [openDialog, setOpenDialog] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState(false);
 
     const { type } = useParams();
 
     function onComposeClick() {
-        setOpenDialog(true);
+        setOpenDrawer(true);
     }
 
     return (
@@ -59,7 +59,7 @@ export default function SideBarContent() {
                     ))
                 }
             </List>
-            <ComposeMail openDialog={openDialog} setOpenDialog={setOpenDialog} />
+            <ComposeMail openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
         </Container>
     );
 }

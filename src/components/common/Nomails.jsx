@@ -22,7 +22,6 @@ export default function Nomails({ message }) {
             <Typography>{message.heading}</Typography>
             <Typography>{message.subHeading}</Typography>
             <StyledDivider />
-            
         </Component>
     );
 }

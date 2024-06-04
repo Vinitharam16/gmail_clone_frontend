@@ -29,5 +29,10 @@ export const EMPTY_TABS = {
     bin: {
         heading: 'No conversations in Bin.',
         subHeading: ''
+    },
+    allmails: {
+        heading: 'No conversations in Bin.',
+        subHeading: ''
     }
+
 }

@@ -16,7 +16,7 @@ export default function Main() {
         <>
             <Header toggleDrawer={toggleDrawer} />
             <Box>
-                <Sidebar openDrawer={openDrawer} />
+                <Sidebar openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
                 <Suspense fallback={<SuspenseLoader />}>
                     <Outlet context={{openDrawer}}/>
                 </Suspense>

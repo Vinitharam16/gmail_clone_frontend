@@ -71,33 +71,27 @@ export default function ViewEmail() {
     return (
         <Box style={openDrawer ? { marginLeft: 250, width: '100%' } : { width: '100%' }}>
             <IconWrapper>
-                <ArrowBack onClick={() =>window.history.back()} color="action" fontSize="small"/>
-                <Delete fontSize="small" color="action" style={{ marginLeft: 40}} onClick={() => deleteEmail()}/>
-
+                <ArrowBack onClick={() => window.history.back()} color="action" fontSize="small" />
+                <Delete fontSize="small" color="action" style={{ marginLeft: 40 }} onClick={() => deleteEmail()} />
             </IconWrapper>
             <Subject>{email.subject} <Indicator component="span">Inbox</Indicator></Subject>
-            <Box style={{ display: 'flex'}}>
-                <Image src={emptyProfilePic} alt="dp"/>
+            <Box style={{ display: 'flex' }}>
+                <Image src={emptyProfilePic} alt="dp" />
                 <Container>
                     <Box>
-                        <Typography>    
-                            {email.to.split('@')[0]} 
+                        <Typography>
+                            {email.to.split('@')[0]}
                             <Box component="span">&nbsp;&#60;{email.to}&#62;</Box>
                         </Typography>
                         <Date>
                             {(new window.Date(email.date)).getDate()}&nbsp;
                             {(new window.Date(email.date)).toLocaleString('default', { month: 'long' })}&nbsp;
-                            {(new window.Date(email.date)).getFullYear()} 
+                            {(new window.Date(email.date)).getFullYear()}
                         </Date>
                     </Box>
                     <Typography style={{ marginTop: 20 }}>{email.body}</Typography>
                 </Container>
             </Box>
-            <Box>
-
-            </Box>
-
-
         </Box>
     );
 }
