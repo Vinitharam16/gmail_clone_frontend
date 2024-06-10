@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Container, Grid, Link, Paper, TextField, Typography, styled } from "@mui/material";
+import { Button, Container, Grid, Paper, TextField, Typography, styled } from "@mui/material";
 import { googlelogo } from '../../../constants/constant';
 import { registerAction } from '../../../Redux/actions/accountActions';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Paperwrapper = styled(Paper)({
   padding: 40,
@@ -139,7 +139,7 @@ export default function SignUp() {
         <Grid container justifyContent='center'>
           <Grid item>
             Sign in to Chrome &nbsp;
-            <Link href="https://gmail-clone-react-app.netlify.app/login">Login</Link>
+            <Link to="/login">Login</Link>
           </Grid>
         </Grid>
       </Paperwrapper>

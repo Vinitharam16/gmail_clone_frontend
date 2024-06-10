@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Container, Grid, Link, Paper, TextField, Typography, styled } from "@mui/material";
+import { Button, Container, Grid, Paper, TextField, Typography, styled } from "@mui/material";
 import { googlelogo } from '../../../constants/constant';
 import { loginAction } from '../../../Redux/actions/accountActions';
+import { Link } from 'react-router-dom';
 
 const Paperwrapper = styled(Paper)({
   padding: 40,
@@ -97,7 +98,7 @@ export default function Login() {
         <Grid container justifyContent='center'>
           <Grid item>
             Don't have account &nbsp;
-            <Link href='https://gmail-clone-react-app.netlify.app'>
+            <Link to='/'>
               Create account
             </Link>
           </Grid>
