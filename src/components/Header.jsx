@@ -1,7 +1,10 @@
-import { AppBar, Toolbar, styled, InputBase, Box } from "@mui/material";
+import { AppBar, Toolbar, styled, InputBase, Box, IconButton, Tooltip, Menu, MenuItem, Avatar, Divider, ListItemIcon } from "@mui/material";
 import React from "react";
-import { Menu as MenuIcon, Search, Tune, HelpOutlineOutlined, SettingsOutlined, AppsOutlined, AccountCircleOutlined } from '@mui/icons-material';
+import { Menu as MenuIcon, Search, Tune, HelpOutlineOutlined, SettingsOutlined, AppsOutlined, PersonAdd, Settings, Logout } from '@mui/icons-material';
 import { gmaillogo } from "../constants/constant";
+import { useDispatch } from "react-redux";
+import { logoutAction } from "../Redux/actions/accountActions";
+import { useNavigate } from "react-router-dom";
 
 const StyledAppBar = styled(AppBar)({
     backgroundColor: "#f5F5F5",
@@ -35,25 +38,130 @@ const OptionsWrapper = styled(Box)({
 });
 
 export default function Header({ toggleDrawer }) {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        dispatch(logoutAction());
+        navigate('/login');
+        setAnchorEl(null);
+    }
+
+
     return (
         <StyledAppBar position="static">
             <Toolbar>
-                <MenuIcon color="action" onClick={toggleDrawer}/>
+                <IconButton>
+                    <MenuIcon color="action" onClick={toggleDrawer} />
+                </IconButton>
                 <img src={gmaillogo} alt="logo" style={{ width: 100, marginLeft: 15 }} />
                 <SearchWrapper>
-                    <Search color="action" />
+                    <IconButton>
+                        <Search color="action" />
+                    </IconButton>
                     <InputBase
                         placeholder="Search in mail"
                     />
-                    <Tune color="action" />
+                    <IconButton>
+                        <Tune color="action" />
+                    </IconButton>
                 </SearchWrapper>
                 <OptionsWrapper>
-                    <HelpOutlineOutlined color="action" />
-                    <SettingsOutlined color="action" />
-                    <AppsOutlined color="action" />
-                    <AccountCircleOutlined color="action" />
+                    <IconButton>
+                        <HelpOutlineOutlined color="action" />
+                    </IconButton>
+                    <IconButton>
+                        <SettingsOutlined color="action" />
+                    </IconButton>
+                    <IconButton>
+                        <AppsOutlined color="action" />
+                    </IconButton>
+                    <Tooltip title="Account settings">
+                        <IconButton
+                            onClick={handleClick}
+                            size="small"
+                            sx={{ ml: 2 }}
+                            aria-controls={open ? 'account-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                        >
+                            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                        </IconButton>
+                    </Tooltip>
+                    <Menu
+                        anchorEl={anchorEl}
+                        id="account-menu"
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                        PaperProps={{
+                            elevation: 0,
+                            sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                },
+                                '&::before': {
+                                    content: '""',
+                                    display: 'block',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 14,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: 'background.paper',
+                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    zIndex: 0,
+                                },
+                            },
+                        }}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    >
+                        <MenuItem onClick={handleClose}>
+                            <Avatar /> Profile
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>
+                            <Avatar /> My account
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem onClick={handleClose}>
+                            <ListItemIcon>
+                                <PersonAdd fontSize="small" />
+                            </ListItemIcon>
+                            Add another account
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>
+                            <ListItemIcon>
+                                <Settings fontSize="small" />
+                            </ListItemIcon>
+                            Settings
+                        </MenuItem>
+                        <MenuItem onClick={handleLogout}>
+                            <ListItemIcon>
+                                <Logout fontSize="small" />
+                            </ListItemIcon>
+                            Logout
+                        </MenuItem>
+                    </Menu>
                 </OptionsWrapper>
             </Toolbar>
-        </StyledAppBar>
+        </StyledAppBar >
     );
 }

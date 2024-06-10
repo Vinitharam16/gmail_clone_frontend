@@ -1,4 +1,3 @@
-
 export const API_URLS = {
     saveSentEmail: {
         endpoint: 'save',
@@ -24,6 +23,5 @@ export const API_URLS = {
         endpoint: 'bin',
         method: 'POST'
     },
-
     
 }

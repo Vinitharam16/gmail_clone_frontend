@@ -66,8 +66,6 @@ export default function ViewEmail() {
         console.log(deletemail);
     }
 
-
-
     return (
         <Box style={openDrawer ? { marginLeft: 250, width: '100%' } : { width: '100%' }}>
             <IconWrapper>

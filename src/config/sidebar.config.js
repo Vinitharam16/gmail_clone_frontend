@@ -28,7 +28,7 @@ export const SIDEBAR_DATA = [
     },
     {
         name: 'bin',
-        title: 'Bin',
+        title: 'Trash',
         icon: DeleteOutlined,
         path: routes.emails.path
     },

@@ -5,6 +5,7 @@ import useApi from "../hooks/useApi";
 import { API_URLS } from "../services/api.urls";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../routes/routes";
+import { useDispatch } from 'react-redux'
 
 const Wrapper = styled(ListItem)({
     padding: '0 0 0 10px',
@@ -42,6 +43,8 @@ export default function Email({ email, setStarredEmail, selectedEmails, setSelec
 
     const navigate = useNavigate();
 
+    const dispatcher = useDispatch();
+
     const toggleStarredEmail = () => {
         toggleStarredEmailService.call({ id: email._id, value: !email.starred });
         setStarredEmail(prevState => !prevState);
@@ -54,10 +57,15 @@ export default function Email({ email, setStarredEmail, selectedEmails, setSelec
             setSelectedEmails(prevState => [...prevState, email._id]);
         }
     }
+    
+    const handleRead = () => {
+        console.log(email._id);
 
+
+    }
 
     return (
-        <Wrapper>
+        <Wrapper onClick={() => handleRead()}>
             <Checkbox
                 size="small"
                 checked={selectedEmails.includes(email._id)}
@@ -69,6 +77,7 @@ export default function Email({ email, setStarredEmail, selectedEmails, setSelec
                     :
                     <StarBorder fontSize="small" style={{ marginRight: 10 }} onClick={() => toggleStarredEmail()} />
             }
+
             <Box onClick={() => navigate(routes.view.path, { state: { email: email } })}>
                 <Typography style={{ width: 200 }}>
                     To:{email.to.split('@')[0]}

@@ -1,12 +1,14 @@
-import { Close, DeleteOutlineOutlined } from "@mui/icons-material";
-import { Box, Button, Dialog, InputBase, TextField, Typography, styled } from "@mui/material";
+import { Close, DeleteOutlineOutlined, Send } from "@mui/icons-material";
+import { Box, Button, Dialog, IconButton, InputBase, TextField, Typography, styled } from "@mui/material";
 import React, { useState } from "react";
 import useApi from "../hooks/useApi";
 import { API_URLS } from "../services/api.urls";
+import { useDispatch } from "react-redux";
+import { sendEmailAction } from "../Redux/actions/emailActions";
 
 
 const dialogStyle = {
-    height: '90%',
+    height: '92%',
     width: '80%',
     maxWidth: '100%',
     maxHeight: '100%',
@@ -25,7 +27,7 @@ const Header = styled(Box)({
     }
 })
 
-const ReaceipientWrapper = styled(Box)({
+const ReceipientWrapper = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
     padding: '0px 15px',
@@ -57,16 +59,16 @@ export default function ComposeMail({ openDrawer, setOpenDrawer }) {
     const sentEmailservice = useApi(API_URLS.saveSentEmail);
     const saveDraftService = useApi(API_URLS.saveDraftEmails);
 
+    const dispatch = useDispatch();
+
     function onValueChange(e) {
         setData({
             ...data,
             [e.target.name]: e.target.value
         })
-        console.log(data);
     }
 
     const sendingMail = async (e) => {
-        e.preventDefault();
 
         const payload = {
             to: data.to,
@@ -79,6 +81,9 @@ export default function ComposeMail({ openDrawer, setOpenDrawer }) {
             starred: false,
             type: 'sent'
         }
+        // dispatch(sendEmailAction(payload))
+        // console.log(payload);
+        
 
         sentEmailservice.call(payload);
 
@@ -86,14 +91,13 @@ export default function ComposeMail({ openDrawer, setOpenDrawer }) {
             setOpenDrawer(false);
             setData({});
         } else {
-           
+
         }
 
     }
 
     const closeComposeMail = async (e) => {
         e.preventDefault();
-
         const payload = {
             to: data.to,
             from: 'vinitharambe1016@gmail.com',
@@ -105,15 +109,13 @@ export default function ComposeMail({ openDrawer, setOpenDrawer }) {
             starred: false,
             type: 'drafts'
         }
-
-        saveDraftService.call(payload);
-
-        if (!saveDraftService.error) {
-            setOpenDrawer(false);
-            setData({})
-        } else {
-
+        console.log(payload);
+        if (payload.to || payload.subject || payload.body) {
+            console.log('vinitha')
+            saveDraftService.call(payload);
         }
+        setOpenDrawer(false);
+        setData({})
     }
 
 
@@ -125,14 +127,15 @@ export default function ComposeMail({ openDrawer, setOpenDrawer }) {
         >
             <Header>
                 <Typography>New Message</Typography>
-                <Close fontSize="small" onClick={(e) => closeComposeMail(e)} />
+                <IconButton size="small">
+                    <Close fontSize="inherit" onClick={(e) => closeComposeMail(e)} />
+                </IconButton>
 
             </Header>
-            <ReaceipientWrapper>
+            <ReceipientWrapper>
                 <InputBase placeholder="Receipients" name="to" onChange={(e) => onValueChange(e)} value={data.to} />
-                <InputBase placeholder="Subject" name="subject" onChange={(e) => onValueChange(e)} value={data.subject}/>
-
-            </ReaceipientWrapper>
+                <InputBase placeholder="Subject" name="subject" onChange={(e) => onValueChange(e)} value={data.subject} />
+            </ReceipientWrapper>
             <TextField
                 multiline
                 rows={18}
@@ -142,8 +145,10 @@ export default function ComposeMail({ openDrawer, setOpenDrawer }) {
                 value={data.body}
             />
             <Footer>
-                <SendButton onClick={(e) => sendingMail()}>Send</SendButton>
-                <DeleteOutlineOutlined onClick={() => setOpenDrawer(false)} />
+                <SendButton onClick={(e) => sendingMail()} endIcon={<Send />}>Send</SendButton>
+                <IconButton aria-label="delete" size="small">
+                    <DeleteOutlineOutlined fontSize="small" onClick={() => setOpenDrawer(false)} />
+                </IconButton>
             </Footer>
         </Dialog>
 

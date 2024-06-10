@@ -1,6 +1,6 @@
 export const gmaillogo = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Gmail2020.logo.png";
 export const emptyProfilePic = "https://miro.medium.com/max/1088/1*DhOnyEHovQZ31rH00-VUDw.png";
-
+export const googlelogo = "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
 
 export const VIEWS = {
     inbox: 'inbox',

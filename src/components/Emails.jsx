@@ -7,6 +7,7 @@ import { EMPTY_TABS } from "../constants/constant";
 import useApi from "../hooks/useApi";
 import { API_URLS } from "../services/api.urls";
 import Email from "./Email";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function Emails() {
@@ -16,10 +17,12 @@ export default function Emails() {
 
     const { openDrawer } = useOutletContext();
     const { type } = useParams();
+    const dispatch = useDispatch();
 
     const getEmailsService = useApi(API_URLS.getEmailFromType);
     const deleteEmailService = useApi(API_URLS.deleteEmails);
     const moveEmailsToBin = useApi(API_URLS.moveEmailsToBin);
+
 
     useEffect(() => {
         getEmailsService.call({}, type);
