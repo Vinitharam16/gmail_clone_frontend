@@ -139,7 +139,7 @@ export default function SignUp() {
         <Grid container justifyContent='center'>
           <Grid item>
             Sign in to Chrome &nbsp;
-            <Link href="/login">Login</Link>
+            <Link href="https://gmail-clone-react-app.netlify.app/login">Login</Link>
           </Grid>
         </Grid>
       </Paperwrapper>

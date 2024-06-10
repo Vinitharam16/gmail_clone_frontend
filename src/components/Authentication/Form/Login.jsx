@@ -97,7 +97,7 @@ export default function Login() {
         <Grid container justifyContent='center'>
           <Grid item>
             Don't have account &nbsp;
-            <Link href='/'>
+            <Link href='https://gmail-clone-react-app.netlify.app'>
               Create account
             </Link>
           </Grid>
